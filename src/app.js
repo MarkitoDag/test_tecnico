@@ -74,7 +74,7 @@ function run() {
                         return [3 /*break*/, 1];
                     }
                     if (!command.includes('help')) return [3 /*break*/, 4];
-                    console.log("\n\nTo analyze a text in a web page or file, enter its URL as the last argument of the command.\n\nYou can also use some optional flags to modify the output:\n\n-rt   This flag removes all HTML tags from the web page. \n      Use it if you want to see the statistics of the words that are visible on the page not the raw HTML.\n-rp   This flag removes all punctuation marks from the text.\n      Use it if you want to have more precise word and letter count.\n-sa   This flag sorts the words that appear more than ten times in alphabetical order.\n-sn   This flag sorts the words that appear more than ten times from the most frequent to the least frequent.   \n-c    This flag terminates the execution of the program.\n            \nIf you use both -sa and -sn flags, the output will be sorted by frequency.\n      \nExample: -rt -rp -sa https://it.wikipedia.org/wiki/Pagina_principale\n      \n      ");
+                    console.log("\n\nTo analyze a text in a web page or file, enter its URL as the last argument of the command.\n\nYou can also use some optional flags to modify the output:\n\n-rt   This flag removes all HTML tags from the web page. \n      Use it if you want to see the statistics of the words that are visible on the page not the raw HTML.\n-sa   This flag sorts the words that appear more than ten times in alphabetical order.\n-sn   This flag sorts the words that appear more than ten times from the most frequent to the least frequent.   \n-c    This flag terminates the execution of the program.\n            \nIf you use both -sa and -sn flags, the output will be sorted by frequency.\n      \nExample: -rt -rp -sa https://it.wikipedia.org/wiki/Pagina_principale\n      \n      ");
                     repeat = true;
                     return [3 /*break*/, 6];
                 case 4:
@@ -86,10 +86,6 @@ function run() {
                     if (command.includes('-rt')) {
                         console.log('-rt');
                         file = fileReader.removeTag(file);
-                    }
-                    if (command.includes('-rp')) {
-                        console.log('-rp');
-                        file = fileReader.removePunctuation(file);
                     }
                     stats = fileReader.calculateWords(file);
                     if (command.includes('-sa')) {

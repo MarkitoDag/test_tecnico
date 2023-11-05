@@ -68,14 +68,6 @@ var FileReader = /** @class */ (function () {
         var regex = /<[^>]+>/g;
         return str.replace(regex, "");
     };
-    // I create a regular expression to identify the punctuation and replace them with an empty string
-    // also check if there is more than one space and if it is replace with only one.
-    FileReader.prototype.removePunctuation = function (str) {
-        var spaces = /\s+/g;
-        str = str.replace(spaces, ' ');
-        var punctuation = /[.,;:?!'\"(){}[\]\\=<>]/g;
-        return str.replace(punctuation, '');
-    };
     // Sort the record by key in alphabetical order
     FileReader.prototype.sortAlpha = function (rec) {
         var keys = Object.keys(rec);
@@ -100,34 +92,32 @@ var FileReader = /** @class */ (function () {
     // I split the text into lines and iterate over each line;
     // I split the line using spaces and update the word counter
     // I iterate over each word to update the letter counter
-    // each word corresponds to a space, so I also update that
     // I check if the word is already present I update the count otherwise I set it to 1. The words are compared using toLocaleLowerCase
     // at the end if a word is present more than 10 times I add it to the record for the words that exceed 10 repetitions.
     FileReader.prototype.calculateWords = function (file) {
+        var _a, _b, _c, _d, _e, _f;
         var wordCount = 0;
-        var letterCount = 0;
-        var spaceCount = 0;
+        var letterCount = (_b = (_a = file.match(/[a-zA-Z]/g)) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0;
+        var spaceCount = (_d = (_c = file.match(/ /g)) === null || _c === void 0 ? void 0 : _c.length) !== null && _d !== void 0 ? _d : 0;
         var wordFrequency = {};
         var repeatedWords = {};
         var lines = file.split('\n');
         for (var _i = 0, lines_1 = lines; _i < lines_1.length; _i++) {
             var line = lines_1[_i];
             var words = line.split(' ');
-            wordCount += words.length;
-            for (var _a = 0, words_1 = words; _a < words_1.length; _a++) {
-                var word = words_1[_a];
-                letterCount += word.length;
-                spaceCount++;
-                if (wordFrequency[word.toLocaleLowerCase()]) {
-                    wordFrequency[word.toLocaleLowerCase()]++;
-                }
-                else {
-                    wordFrequency[word.toLocaleLowerCase()] = 1;
+            for (var _g = 0, words_1 = words; _g < words_1.length; _g++) {
+                var word = words_1[_g];
+                if ((_f = (_e = word.match(/[a-zA-Z]/g)) === null || _e === void 0 ? void 0 : _e.length) !== null && _f !== void 0 ? _f : 0 !== 0) {
+                    wordCount++;
+                    if (wordFrequency[word.toLocaleLowerCase()]) {
+                        wordFrequency[word.toLocaleLowerCase()]++;
+                    }
+                    else {
+                        wordFrequency[word.toLocaleLowerCase()] = 1;
+                    }
                 }
             }
         }
-        // Subtract 1 from the variable spaceCount to eliminate the final space
-        spaceCount--;
         for (var word in wordFrequency) {
             if (wordFrequency[word] > 10) {
                 repeatedWords[word] = wordFrequency[word];

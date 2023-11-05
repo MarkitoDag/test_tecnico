@@ -40,12 +40,6 @@ describe('FileReader', () => {
     expect(result).to.equal('This is a test.');
   });
 
-  it('should remove punctuation from a string', () => {
-    let str = 'Hello, world! This is a test.';
-    let result = fileReader.removePunctuation(str);
-    expect(result).to.be.a('string');
-    expect(result).to.equal('Hello world This is a test');
-  });
 
   it('should sort a record by key in alphabetical order', () => {
     let rec = {z: 1, a: 2, b: 3, c: 4};
@@ -71,7 +65,7 @@ describe('FileReader', () => {
     expect(result).to.have.property('spaceCount');
     expect(result).to.have.property('repeatedWords');
     expect(result.wordCount).to.equal(2);
-    expect(result.letterCount).to.equal(12);
+    expect(result.letterCount).to.equal(10);
     expect(result.spaceCount).to.equal(1);
     expect(result.repeatedWords).to.deep.equal({});
   });

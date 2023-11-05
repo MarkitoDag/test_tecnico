@@ -46,8 +46,6 @@ You can also use some optional flags to modify the output:
 
 -rt   This flag removes all HTML tags from the web page. 
       Use it if you want to see the statistics of the words that are visible on the page not the raw HTML.
--rp   This flag removes all punctuation marks from the text.
-      Use it if you want to have more precise word and letter count.
 -sa   This flag sorts the words that appear more than ten times in alphabetical order.
 -sn   This flag sorts the words that appear more than ten times from the most frequent to the least frequent.   
 -c    This flag terminates the execution of the program.
@@ -69,10 +67,6 @@ Example: -rt -rp -sa https://it.wikipedia.org/wiki/Pagina_principale
         if (command.includes('-rt')) {
           console.log('-rt');
           file = fileReader.removeTag(file);
-        }
-        if (command.includes('-rp')) {
-          console.log('-rp');
-          file = fileReader.removePunctuation(file);
         }
 
         let stats = fileReader.calculateWords(file);
